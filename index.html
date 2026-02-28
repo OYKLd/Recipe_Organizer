@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organiseur de Recettes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Organiseur de Recettes</h1>
+            <div class="header-actions">
+                <button id="themeToggle" class="btn btn-secondary" title="Basculer le mode sombre">🌙</button>
+                <button id="addRecipeBtn" class="btn btn-primary">+ Ajouter une recette</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Rechercher une recette..." class="search-input">
+                    <button id="searchBtn" class="search-btn">🔍</button>
+                </div>
+                
+                <div class="filters">
+                    <button class="filter-btn active" data-category="all">Toutes</button>
+                    <button class="filter-btn" data-category="plat">Plats</button>
+                    <button class="filter-btn" data-category="dessert">Desserts</button>
+                    <button class="filter-btn" data-category="boisson">Boissons</button>
+                    <button class="filter-btn" data-category="entree">Entrées</button>
+                </div>
+            </section>
+
+            <section id="recipesGrid" class="recipes-grid">
+                <!-- recettes seront ajoutées dynamiquement ici -->
+            </section>
+
+            <div id="emptyState" class="empty-state">
+                <h2>Aucune recette pour le moment</h2>
+                <p>Ajoutez votre première recette pour commencer !</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ajouter/éditer une recette -->
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Ajouter une recette</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            
+            <form id="recipeForm" class="recipe-form">
+                <div class="form-group">
+                    <label for="recipeTitle">Titre de la recette *</label>
+                    <input type="text" id="recipeTitle" name="title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeCategory">Catégorie *</label>
+                    <select id="recipeCategory" name="category" required>
+                        <option value="">Sélectionner une catégorie</option>
+                        <option value="plat">Plat</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="boisson">Boisson</option>
+                        <option value="entree">Entrée</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeImage">URL de l'image (optionnel)</label>
+                    <input type="url" id="recipeImage" name="image" placeholder="https://example.com/image.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeTime">Temps de préparation (optionnel)</label>
+                    <input type="text" id="recipeTime" name="time" placeholder="ex: 30 min">
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeIngredients">Ingrédients *</label>
+                    <div id="ingredientsList">
+                        <div class="ingredient-item">
+                            <input type="text" class="ingredient-input" placeholder="ex: 200g de farine" required>
+                            <button type="button" class="remove-ingredient-btn">×</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addIngredientBtn" class="btn btn-secondary">+ Ajouter un ingrédient</button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="recipeSteps">Étapes de préparation *</label>
+                    <div id="stepsList">
+                        <div class="step-item">
+                            <textarea class="step-input" placeholder="Décrivez l'étape de préparation..." required></textarea>
+                            <button type="button" class="remove-step-btn">×</button>
+                        </div>
+                    </div>
+                    <button type="button" id="addStepBtn" class="btn btn-secondary">+ Ajouter une étape</button>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Enregistrer la recette</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- voir les détails d'une recette -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="detailTitle"></h2>
+                <button class="close-btn" id="closeDetailModal">&times;</button>
+            </div>
+            <div id="detailContent" class="recipe-detail">
+                <!-- Le contenu sera ajouté dynamiquement -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
