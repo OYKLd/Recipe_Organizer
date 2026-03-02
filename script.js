@@ -43,7 +43,7 @@ class RecipeOrganizer {
                     id: Date.now() + 1,
                     title: "Tiramisu",
                     category: "dessert",
-                    image: "",
+                    image: "tiramisu.jpg",
                     time: "30 min + repos",
                     ingredients: ["300g de biscuits à la cuillère", "500g de mascarpone", "4 œufs", "100g de sucre", "1 café fort", "Cacao en poudre"],
                     steps: [
@@ -160,7 +160,7 @@ class RecipeOrganizer {
 
     updateThemeToggle(isDark) {
         const themeToggle = document.getElementById('themeToggle');
-        themeToggle.textContent = isDark ? 'Soleil' : 'Lune';
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
         themeToggle.title = isDark ? 'Passer au mode clair' : 'Passer au mode sombre';
     }
 
@@ -383,7 +383,7 @@ class RecipeOrganizer {
                         <span class="recipe-card-category">${this.getCategoryLabel(recipe.category)}</span>
                         ${recipe.time ? `<span class="recipe-card-time">Temps: ${recipe.time}</span>` : ''}
                         <button class="favorite-btn ${recipe.favorite ? 'active' : ''}" onclick="app.toggleFavorite(${recipe.id}); app.showRecipeDetails(${recipe.id});">
-                            ${recipe.favorite ? 'Favori' : 'Non favori'}
+                            ${recipe.favorite ? '❤️' : '🤍'}
                         </button>
                     </div>
                 </div>
@@ -405,7 +405,7 @@ class RecipeOrganizer {
 
             <div class="form-actions">
                 <button class="btn btn-secondary" onclick="app.openModal(${recipe.id})">Modifier</button>
-                <button class="btn btn-primary" onclick="app.deleteRecipe(${recipe.id}); app.closeDetailModal();">Supprimer</button>
+                <button class="btn btn-primary" onclick="app.deleteRecipe(${recipe.id}); app.closeDetailModal();">🗑️ Supprimer</button>
             </div>
         `;
 
@@ -474,12 +474,12 @@ class RecipeOrganizer {
                         <button class="card-action-btn favorite-btn ${recipe.favorite ? 'active' : ''}" 
                                 onclick="event.stopPropagation(); app.toggleFavorite(${recipe.id})" 
                                 title="${recipe.favorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
-                            ${recipe.favorite ? 'Favori' : 'Non favori'}
+                            ${recipe.favorite ? '❤️' : '🤍'}
                         </button>
                         <button class="card-action-btn delete-btn" 
                                 onclick="event.stopPropagation(); app.deleteRecipe(${recipe.id})" 
                                 title="Supprimer la recette">
-                            Supprimer
+                            🗑️
                         </button>
                     </div>
                 </div>
