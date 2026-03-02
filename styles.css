@@ -1,4 +1,3 @@
-/* Palette rustique et chaleureuse */
 :root {
     --primary-color: #8B4513; /* Brun bois naturel */
     --secondary-color: #D2691E; /* Orange-brun chaleureux */
@@ -16,7 +15,6 @@
     --transition: all 0.3s ease;
 }
 
-/* Ambiance rustique soirée d'hiver */
 [data-theme="dark"] {
     --primary-color: #A0522D; /* Brun cuir */
     --secondary-color: #BC8F8F; /* Rosé brun */
