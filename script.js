@@ -21,45 +21,7 @@ class RecipeOrganizer {
             this.recipes = JSON.parse(savedRecipes);
         } else {
             // Ajouter quelques recettes d'exemple
-            this.recipes = [
-                {
-                    id: Date.now(),
-                    title: "Pâtes Carbonara",
-                    category: "plat",
-                    image: "",
-                    time: "25 min",
-                    ingredients: ["200g de pâtes", "100g de lardons", "2 œufs", "50g de parmesan", "Poivre noir"],
-                    steps: [
-                        "Faire cuire les pâtes dans une grande casserole d'eau bouillante salée.",
-                        "Pendant ce temps, faire revenir les lardons dans une poêle.",
-                        "Dans un bol, battre les œufs avec le parmesan râpé et le poivre.",
-                        "Égoutter les pâtes et les mélanger immédiatement avec le mélange d'œufs hors du feu.",
-                        "Ajouter les lardons et servir immédiatement."
-                    ],
-                    favorite: false,
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    id: Date.now() + 1,
-                    title: "Tiramisu",
-                    category: "dessert",
-                    image: "tiramisu.jpg",
-                    time: "30 min + repos",
-                    ingredients: ["300g de biscuits à la cuillère", "500g de mascarpone", "4 œufs", "100g de sucre", "1 café fort", "Cacao en poudre"],
-                    steps: [
-                        "Séparer les blancs des jaunes d'œufs.",
-                        "Battre les jaunes avec le sucre jusqu'à ce que le mélange blanchisse.",
-                        "Ajouter la mascarpone aux jaunes d'œufs.",
-                        "Monter les blancs en neige et les incorporer délicatement au mélange.",
-                        "Tremper rapidement les biscuits dans le café et les disposer dans le fond du plat.",
-                        "Recouvrir d'une couche de crème, répéter l'opération.",
-                        "Terminer par une couche de crème et saupoudrer de cacao.",
-                        "Laisser reposer au moins 4 heures au réfrigérateur."
-                    ],
-                    favorite: true,
-                    createdAt: new Date().toISOString()
-                }
-            ];
+            this.recipes = [];
             this.saveRecipes();
         }
     }
@@ -330,6 +292,11 @@ class RecipeOrganizer {
             const index = this.recipes.findIndex(r => r.id === this.editingRecipeId);
             if (index !== -1) {
                 this.recipes[index] = { ...this.recipes[index], ...recipe };
+                // Rafraîchir le modal de détails si il est ouvert
+                const detailModal = document.getElementById('detailModal');
+                if (detailModal.classList.contains('active')) {
+                    this.showRecipeDetails(this.editingRecipeId);
+                }
             }
         } else {
             this.recipes.unshift(recipe);
@@ -374,8 +341,8 @@ class RecipeOrganizer {
             <div class="recipe-detail-header">
                 <div class="recipe-detail-image">
                     ${recipe.image ? 
-                        `<img src="${recipe.image}" alt="${recipe.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">` : 
-                        'Plat'
+                        `<img src="${recipe.image}" alt="${recipe.title}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" onerror="this.style.display='none'; this.parentElement.innerHTML='🍽️';">` : 
+                        '🍽️'
                     }
                 </div>
                 <div class="recipe-detail-info">
@@ -462,8 +429,8 @@ class RecipeOrganizer {
             <div class="recipe-card" onclick="app.showRecipeDetails(${recipe.id})">
                 <div class="recipe-card-image">
                     ${recipe.image ? 
-                        `<img src="${recipe.image}" alt="${recipe.title}" style="width: 100%; height: 100%; object-fit: cover;">` : 
-                        'Plat'
+                        `<img src="${recipe.image}" alt="${recipe.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='🍽️';">` : 
+                        '🍽️'
                     }
                 </div>
                 <div class="recipe-card-content">
