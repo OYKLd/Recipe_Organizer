@@ -131,6 +131,9 @@ class RecipeOrganizer {
         const modal = document.getElementById('recipeModal');
         const modalTitle = document.getElementById('modalTitle');
         const form = document.getElementById('recipeForm');
+        
+        // Fermer le modal de détails si il est ouvert
+        this.closeDetailModal();
 
         if (recipeId) {
             const recipe = this.recipes.find(r => r.id === recipeId);
@@ -288,15 +291,12 @@ class RecipeOrganizer {
                 new Date().toISOString()
         };
 
+        let wasEditing = false;
         if (this.editingRecipeId) {
+            wasEditing = true;
             const index = this.recipes.findIndex(r => r.id === this.editingRecipeId);
             if (index !== -1) {
                 this.recipes[index] = { ...this.recipes[index], ...recipe };
-                // Rafraîchir le modal de détails si il est ouvert
-                const detailModal = document.getElementById('detailModal');
-                if (detailModal.classList.contains('active')) {
-                    this.showRecipeDetails(this.editingRecipeId);
-                }
             }
         } else {
             this.recipes.unshift(recipe);
@@ -305,6 +305,11 @@ class RecipeOrganizer {
         this.saveRecipes();
         this.renderRecipes();
         this.closeModal();
+        
+        // Si on était en train d'éditer, réouvrir le modal de détails
+        if (wasEditing) {
+            this.showRecipeDetails(this.editingRecipeId);
+        }
     }
 
     // Supprimer une recette
